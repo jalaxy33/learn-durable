@@ -18,7 +18,7 @@ npm run typecheck          # tsc --noEmit
 | 序 | 文件 | 演示什么 | 关键机制 | 状态 | 备注 | 笔记 |
 |---|---|---|---|---|---|---|
 | 13 | `13-chat.ts` | 一问一答 | `submit` / `wait` 的提交与结算；`pi.generation` 运行；sections 系统提示词；条目只追加 | 通过 | | [13-chat](notes/13-chat.md) |
-| 14 | `14-system-prompt.ts` | 系统提示词 | — | 未做 | | |
+| 14 | `14-system-prompt.ts` | 系统提示词 | sections + `wrapSection` 装饰；`pi.system` 只存差异补丁；`env` 工厂；每会话 agent | 通过 | | [14-system-prompt](notes/14-system-prompt.md) |
 | 15 | `15-real-model.ts` | 用 OpenAI 流式输出答案 | — | 未做 | 需要 `OPENAI_API_KEY` | |
 | 16 | `16-coding-tools.ts` | 带工具的一轮对话，JSONL 存储 | — | 未做 | | |
 | 17 | `17-print.ts` | print 模式：提交 prompt，打印答案 | — | 未做 | | |
