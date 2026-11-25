@@ -94,7 +94,7 @@ await (
 console.log("root system prompt:", await systemEntries(root));
 console.log("subagent system prompt:", await systemEntries(subagent));
 
-await root.configure({ cwd: "repo/packages" }, context);
+await root.configure({ cwd: "/repo/packages" }, context);
 await (
   await root.submit({ type: "input", content: "Now the package." }, context)
 ).wait(context);
@@ -142,7 +142,7 @@ root system entries after cwd change: [
   {
     role: 'system',
     content: '',
-    sections: { cwd: '<cwd>\nrepo/packages\n</cwd>' },
+    sections: { cwd: '<cwd>\n/repo/packages\n</cwd>' },
     timestamp: 1795590775622
   }
 ]
