@@ -55,21 +55,21 @@ npm run typecheck          # tsc --noEmit
 
 ## 之后：底层各层 00–12
 
-| 序 | 文件 | 状态 |
-|---|---|---|
-| 00 | `00-conversation.ts` | 未做 |
-| 01 | `01-documents.ts` | 未做 |
-| 02 | `02-forks.ts` | 未做 |
-| 03 | `03-owned-conversations.ts` | 未做 |
-| 04 | `04-watches.ts` | 未做 |
-| 05 | `05-harness.ts` | 未做 |
-| 06 | `06-configuration.ts` | 未做 |
-| 07 | `07-harness-conversations.ts` | 未做 |
-| 08 | `08-context.ts` | 未做 |
-| 09 | `09-registry-reload.ts` | 未做 |
-| 10 | `10-extension-state.ts` | 未做 |
-| 11 | `11-tasks.ts` | 未做 |
-| 12 | `12-recovery.ts` | 未做 |
+| 序 | 文件 | 关键机制 | 状态 | 笔记 |
+|---|---|---|---|---|
+| 00 | `00-conversation.ts` | — | 未做 | |
+| 01 | `01-documents.ts` | — | 未做 | |
+| 02 | `02-forks.ts` | — | 未做 | |
+| 03 | `03-owned-conversations.ts` | — | 未做 | |
+| 04 | `04-watches.ts` | — | 未做 | |
+| 05 | `05-harness.ts` | — | 未做 | |
+| 06 | `06-configuration.ts` | — | 未做 | |
+| 07 | `07-harness-conversations.ts` | — | 未做 | |
+| 08 | `08-context.ts` | — | 未做 | |
+| 09 | `09-registry-reload.ts` | — | 未做 | |
+| 10 | `10-extension-state.ts` | — | 未做 | |
+| 11 | `11-tasks.ts` | — | 未做 | |
+| 12 | `12-recovery.ts` | `defineTask` 阶段状态机；检查点 + `memo` 幂等；`sleepUntil`；关掉重开继续 | 通过 | [12-recovery](notes/12-recovery.md) |
 
 ## 对应笔记
 
