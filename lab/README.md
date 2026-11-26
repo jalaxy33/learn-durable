@@ -42,7 +42,7 @@ npm run typecheck          # tsc --noEmit
 | 35 | `35-durable-on-the-store.ts` | Harness 建在 Chord 宿主 store 的 `StoreStorage` 上，与 Chord 对象自己的表并存：一个 commit 队列、一个 id 分配器、一次导出 | — | 未做 | | |
 | 36 | `36-durable-views.ts` | Chord 对象用 `self.follow` 跟一个 Durable view：帧，以及成员读取跟到的值 | — | 未做 | | |
 | 37 | `37-harness-registry.ts` | Harness 放在 Chord 对象里：扩展经 Chord registry 贡献，Harness 关闭时 follower 迁到下一个 | — | 未做 | | |
-| 38 | `38-signals.ts` | `defineSignal()`、`harness.signal()` 的每种结果、提前到的信号立刻唤醒 sleep | — | 未做 | | |
+| 38 | `38-signals.ts` | `defineSignal()`、`harness.signal()` 的每种结果、提前到的信号立刻唤醒 sleep | 信号的 name/version/schema；五种投递结果；睡在 key 上、唤醒即消费；`wake()` 的宿主视角 | 通过 | | [38-signals](notes/38-signals.md) |
 | 39 | `39-ask-a-person.ts` | task 睡在一个人的回答上并带 deadline：先答，再过期且迟到回答被拒；睡眠中 `wake()` | — | 未做 | | |
 | 40 | `40-tool-waits-for-webhook.ts` | CI 工具落在自己 webhook 的 signal 上：park 前崩溃（幂等 memo）与 park 中被 Stop（`cancel`） | — | 未做 | | |
 | 41 | `41-tool-polls.ts` | 按时间 park，带退避地轮询一个慢任务 | — | 未做 | | |
