@@ -13,7 +13,7 @@ npm run typecheck          # tsc --noEmit
 
 ## 进度
 
-状态：`未做` / `在做` / `通过`；读源码的示例在备注里标「只读源码」。关键机制随做随填。备注记本地对示例做过的改动、跑法差异。
+状态：`未做` / `在做` / `通过`。关键机制随做随填。备注记本地对示例做过的改动、跑法差异。
 
 | 序 | 文件 | 演示什么 | 关键机制 | 状态 | 备注 | 笔记 |
 |---|---|---|---|---|---|---|
@@ -28,7 +28,7 @@ npm run typecheck          # tsc --noEmit
 | 21 | [`21-subagent-foreground.ts`](examples/21-subagent-foreground.ts) | 可重放的 subagent 工具，子会话归该调用所有，子 transcript 挂在调用下 | 子会话 `ownership: task`；`replay: "safe"` + owner 扫描 + `requestId` 的幂等三件套；`api.details` 暴露子会话；按条目 ID 读答案 | 通过 | 用 `DEEPSEEK_API_KEY` 切真模型 | [21-subagent-foreground](notes/21-subagent-foreground.md) |
 | 22 | `22-subagent-background.ts` | 常驻 subagent：生成、steer、停止、列出，答案回报给父会话，重启安全 | — | 未做 | | |
 | 23 | `23-child-tasks.ts` | 一个 checkout 拥有并等待四笔支付：failFast、abort、重启 | — | 未做 | | |
-| 24 | [`24-compaction.ts`](examples/24-compaction.ts) | 长对话压缩：后台、手动、上下文溢出后 | 三条触发路径；摘要是 `pi.compaction` 条目 + `head` 标记；手动压缩排队放置；`entries` 与 `context` 的区别 | 通过 | 读源码 + 手打验证 | [24-compaction](notes/24-compaction.md) |
+| 24 | [`24-compaction.ts`](examples/24-compaction.ts) | 长对话压缩：后台、手动、上下文溢出后 | 三条触发路径；摘要是 `pi.compaction` 条目 + `head` 标记；手动压缩排队放置；`entries` 与 `context` 的区别 | 通过 | | [24-compaction](notes/24-compaction.md) |
 | 25 | `25-coding-agent.ts` | CodingTools、settings 对象提供的实时设置、跟随会话目录的 environment | — | 未做 | | |
 | 26 | `26-plan-mode.ts` | 只读 plan 模式，作为带自己 document 的扩展，用 `configure()` 切换 | — | 未做 | | |
 | 27 | `27-reviewer.ts` | 自带 model、扩展、工具、目录的 reviewer 会话与评审循环 | — | 未做 | | |
@@ -37,7 +37,7 @@ npm run typecheck          # tsc --noEmit
 | 30 | `30-reload-and-restart.ts` | 调用进行中重载扩展；存储的选择跨重启存活 | — | 未做 | | |
 | 31 | `31-transcript.ts` | 客户端 transcript 走 windowed view：实时追加、带 gap 的停顿、加载与更早分页、用 `from` 续读 | — | 未做 | | |
 | 32 | `32-tests-after-edits.ts` | `afterRun` 钩子在改过文件的 run 之后跑测试，失败则发起修复 run，输入等它们 | — | 未做 | | |
-| 33 | `33-turn-limit-and-continue.ts` | 每会话 turn 上限、`runFailure`、不带用户消息继续 | — | 未做 | | |
+| 33 | [`33-turn-limit-and-continue.ts`](examples/33-turn-limit-and-continue.ts) | 每会话 turn 上限、`runFailure`、不带用户消息继续 | `maxTurns` 存会话 agent；`turn_limit` 是可恢复停止；`continue` 重置预算且不排队；`nothing_to_answer` | 通过 | | [33-turn-limit-and-continue](notes/33-turn-limit-and-continue.md) |
 | 34 | `34-submit-in-commit.ts` | 用 `submit(tx, draft)` 与 `whenIdle: "reject"` 在宿主自己的 commit 内接纳 visitor 的 steer | — | 未做 | | |
 | 35 | `35-durable-on-the-store.ts` | Harness 建在 Chord 宿主 store 的 `StoreStorage` 上，与 Chord 对象自己的表并存：一个 commit 队列、一个 id 分配器、一次导出 | — | 未做 | | |
 | 36 | `36-durable-views.ts` | Chord 对象用 `self.follow` 跟一个 Durable view：帧，以及成员读取跟到的值 | — | 未做 | | |
