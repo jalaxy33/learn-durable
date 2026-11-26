@@ -142,6 +142,7 @@ const attach = async (id: ConversationId, indent: string): Promise<void> => {
     for (const slot of (value.docs["pi.live"] as LiveState).tools ?? []) {
       const child = (slot.details as { conversationId?: ConversationId } | undefined)
         ?.conversationId;
+      // child 的缩进多两个空格
       if (child !== undefined && !attached.has(child)) await attach(child, `${indent}  `);
     }
   });
