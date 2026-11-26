@@ -22,7 +22,7 @@ npm run typecheck          # tsc --noEmit
 | 15 | [`15-real-model.ts`](examples/15-real-model.ts) | 用 DeepSeek 流式输出答案 | provider / `Models` 目录；`pi.live` 节流的部分回答；`watchDoc` 看文档；补齐差额 | 通过 | 需要 `DEEPSEEK_API_KEY`；模型 `deepseek-flash` | [15-real-model](notes/15-real-model.md) |
 | 16 | [`16-coding-tools.ts`](examples/16-coding-tools.ts) | 带工具的一轮对话，JSONL 存储 | `Storage` 接口换实现；`env` 决定文件/进程访问；每个调用一个 `pi.tool` 任务；`beforeTool`/`afterTool`；工具错误是数据 | 通过 | 存储目录 = 工作目录（同一个临时目录）；`cat /tmp/1gb.txt` 要先建文件 | [16-coding-tools](notes/16-coding-tools.md) |
 | 17 | `17-print.ts` | print 模式：提交 prompt，打印答案 | — | 未做 | | |
-| 18 | `18-json.ts` | JSON 模式：原始 view 操作，或追加 entry + 每次变化触发的 `pi.live`，跑在 SQLite / JSONL / memory 上 | — | 未做 | | |
+| 18 | [`18-json.ts`](examples/18-json.ts) | JSON 模式：原始 view 操作，或追加 entry + 每次变化触发的 `pi.live`，跑在 SQLite / JSONL / memory 上 | `ConversationView` 的窗口与 docs；ops 补丁 vs state 快照；折叠与积压整体替换；三种存储同构 | 通过 | 用 `DEEPSEEK_API_KEY` 切真模型 | [18-json](notes/18-json.md) |
 | 19 | [`19-inbox.ts`](examples/19-inbox.ts) | 忙碌时的 steer、follow-up、write 与撤回 | 忙时提交的四种去向；`pi.inbox` 队列；边界放置顺序；write 不排队；`continue` | 通过 | | [19-inbox](notes/19-inbox.md) |
 | 20 | `20-late-join.ts` | 运行中接入 view：先拿到运行中工具的输出，再看流式答案 | — | 未做 | | |
 | 21 | `21-subagent-foreground.ts` | 可重放的 subagent 工具，子会话归该调用所有，子 transcript 挂在调用下 | — | 未做 | | |
