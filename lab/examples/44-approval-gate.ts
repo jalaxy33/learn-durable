@@ -180,3 +180,15 @@ await run("Clean cache", async () => {
   harness.resume();
 });
 await harness.close(context);
+
+/*
+预期输出：
+asked to approve "rm -rf build"; the call is sleeping; wake: { active: false, at: 1798394400000 }
+  approve: delivered
+  result: ran: rm -rf build (quiet-hours gate asked 2 times)
+asked to approve "rm -rf dist"; the call is sleeping; wake: { active: false, at: 1798394400000 }
+  deny: delivered
+  result: <harness> [error] Tool call blocked: Not approved </harness> (quiet-hours gate asked 2 times)
+asked to approve "rm -rf cache"; the call is sleeping; wake: { active: false, at: 1798394400000 }
+  result: <harness> [error] Tool call blocked: No approval within a day </harness> (quiet-hours gate asked 2 times)
+*/
