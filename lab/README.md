@@ -29,7 +29,7 @@ npm run typecheck          # tsc --noEmit
 | 22 | `22-subagent-background.ts` | 常驻 subagent：生成、steer、停止、列出，答案回报给父会话，重启安全 | — | 未做 | | |
 | 23 | `23-child-tasks.ts` | 一个 checkout 拥有并等待四笔支付：failFast、abort、重启 | — | 未做 | | |
 | 24 | [`24-compaction.ts`](examples/24-compaction.ts) | 长对话压缩：后台、手动、上下文溢出后 | 三条触发路径；摘要是 `pi.compaction` 条目 + `head` 标记；手动压缩排队放置；`entries` 与 `context` 的区别 | 通过 | | [24-compaction](notes/24-compaction.md) |
-| 25 | `25-coding-agent.ts` | CodingTools、settings 对象提供的实时设置、跟随会话目录的 environment | 五块零件的组装；getter 设置每次读取；env 工厂跟随会话 cwd；用 `bash pwd` 做自检回路；产品化缺口清单 | 在做 | | [25-coding-agent](notes/25-coding-agent.md) |
+| 25 | [`25-coding-agent.ts`](examples/25-coding-agent.ts) | CodingTools、settings 对象提供的实时设置、跟随会话目录的 environment | 五块零件的组装；getter 设置每次读取；env 工厂跟随会话 cwd；用 `bash pwd` 做自检回路；产品化缺口清单 | 通过 | | [25-coding-agent](notes/25-coding-agent.md) |
 | 26 | `26-plan-mode.ts` | 只读 plan 模式，作为带自己 document 的扩展，用 `configure()` 切换 | — | 未做 | | |
 | 27 | `27-reviewer.ts` | 自带 model、扩展、工具、目录的 reviewer 会话与评审循环 | — | 未做 | | |
 | 28 | `28-sandbox-per-conversation.ts` | 每会话一个 environment，从 app document 里查 | — | 未做 | | |
