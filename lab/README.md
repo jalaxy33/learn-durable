@@ -13,7 +13,7 @@ npm run typecheck          # tsc --noEmit
 
 ## 进度
 
-状态：`未做` / `在做` / `通过`。关键机制随做随填。备注记本地对示例做过的改动、跑法差异。
+状态：`未做` / `在做` / `通过`；读源码的示例在备注里标「只读源码」。关键机制随做随填。备注记本地对示例做过的改动、跑法差异。
 
 | 序 | 文件 | 演示什么 | 关键机制 | 状态 | 备注 | 笔记 |
 |---|---|---|---|---|---|---|
@@ -43,7 +43,7 @@ npm run typecheck          # tsc --noEmit
 | 36 | `36-durable-views.ts` | Chord 对象用 `self.follow` 跟一个 Durable view：帧，以及成员读取跟到的值 | — | 未做 | | |
 | 37 | `37-harness-registry.ts` | Harness 放在 Chord 对象里：扩展经 Chord registry 贡献，Harness 关闭时 follower 迁到下一个 | — | 未做 | | |
 | 38 | `38-signals.ts` | `defineSignal()`、`harness.signal()` 的每种结果、提前到的信号立刻唤醒 sleep | 信号的 name/version/schema；五种投递结果；睡在 key 上、唤醒即消费；`wake()` 的宿主视角 | 通过 | | [38-signals](notes/38-signals.md) |
-| 39 | `39-ask-a-person.ts` | task 睡在一个人的回答上并带 deadline：先答，再过期且迟到回答被拒；睡眠中 `wake()` | — | 未做 | | |
+| 39 | `39-ask-a-person.ts` | task 睡在一个人的回答上并带 deadline：先答，再过期且迟到回答被拒；睡眠中 `wake()` | 信号 + `until` 同时挂；`reason` 决定走哪条；时钟注入；过期后迟到值 `closed`；问题内容归宿主存 | 通过 | [39-ask-a-person](notes/39-ask-a-person.md) |
 | 40 | `40-tool-waits-for-webhook.ts` | CI 工具落在自己 webhook 的 signal 上：park 前崩溃（幂等 memo）与 park 中被 Stop（`cancel`） | — | 未做 | | |
 | 41 | `41-tool-polls.ts` | 按时间 park，带退避地轮询一个慢任务 | — | 未做 | | |
 | 42 | `42-parallel-children.ts` | `executeTool(..., { wait: false })` 与 `policy: "any"` 的 park，跨唤醒按 key 收结果 | — | 未做 | | |
