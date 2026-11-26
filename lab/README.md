@@ -48,7 +48,7 @@ npm run typecheck          # tsc --noEmit
 | 41 | `41-tool-polls.ts` | 按时间 park，带退避地轮询一个慢任务 | — | 未做 | | |
 | 42 | `42-parallel-children.ts` | `executeTool(..., { wait: false })` 与 `policy: "any"` 的 park，跨唤醒按 key 收结果 | — | 未做 | | |
 | 43 | `43-subagent-waits.ts` | subagent 工具 park 在 `SubmissionSettled`（`notify`）上，子会话 park 在人身上 | — | 未做 | | |
-| 44 | `44-approval-gate.ts` | 以参数为 key、deadline 带 memo 的 `beforeTool` 审批闸，加一道每次唤醒都重问的闸，以及拒绝与过期 | 闸门三种返回；`sleep` 重跑 call 阶段；参数摘要当 key；deadline 必须 memo；拒绝/超时都是错误结果 | 在做 | | [44-approval-gate](notes/44-approval-gate.md) |
+| 44 | [`44-approval-gate.ts`](examples/44-approval-gate.ts) | 以参数为 key、deadline 带 memo 的 `beforeTool` 审批闸，加一道每次唤醒都重问的闸，以及拒绝与过期 | 闸门三种返回；`sleep` 重跑 call 阶段；参数摘要当 key；deadline 必须 memo；拒绝/超时都是错误结果 | 通过 | `noUncheckedIndexedAccess` 下 Map 展开要断言 | [44-approval-gate](notes/44-approval-gate.md) |
 | 45 | [`45-review-on-yield.ts`](examples/45-review-on-yield.ts) | `onYield` 审查 task，`{ continue }` 把 agent 送回去；排队的用户消息胜出 | 答案先提交、输入保持 `placed`；`run.yield.answer` 供审查；打回重置轮数并再审；`takesContinuation` 让用户输入优先 | 通过 | | [45-review-on-yield](notes/45-review-on-yield.md) |
 | 46 | [`46-after-tools-terminate.ts`](examples/46-after-tools-terminate.ts) | `afterTools` task 问人是否继续：一次 steer，然后 `{ terminate: true }` | 轮内检查点；`terminate` 省掉下一次请求；steer 在终结提交里放行；任务睡信号期间零进程；`oneOf` schema | 通过 | | [46-after-tools-terminate](notes/46-after-tools-terminate.md) |
 | 47 | `47-fit-images.ts` | 存储前把图片适配模型上限：`fitImage` 附照片、`fit-images` 扩展处理工具截图 | — | 未做 | | |
