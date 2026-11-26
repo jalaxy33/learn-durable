@@ -59,7 +59,7 @@ npm run typecheck          # tsc --noEmit
 |---|---|---|---|---|
 | 00 | `00-conversation.ts` | — | 未做 | |
 | 01 | `01-documents.ts` | — | 未做 | |
-| 02 | `02-forks.ts` | `forkConversation` 从条目分叉；`defineDoc` 的 history/fork 组合决定文档继承哪一刻；条目不复制 | 在做 | [02-forks](notes/02-forks.md) |
+| 02 | [`02-forks.ts`](examples/02-forks.ts) | `forkConversation` 从条目分叉；`defineDoc` 的 history/fork 组合决定文档继承哪一刻；条目不复制 | 通过 | [02-forks](notes/02-forks.md) |
 | 03 | `03-owned-conversations.ts` | — | 未做 | |
 | 04 | `04-watches.ts` | — | 未做 | |
 | 05 | `05-harness.ts` | — | 未做 | |
