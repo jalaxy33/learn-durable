@@ -112,9 +112,12 @@ if (mode === "ops") {
 }
 
 const submission = await root.submit({ type: "input", content: prompt }, context);
+// 等这一条输入结算，保证“答案已提交”
 await submission.wait(context);
+// 等整个会话 idle————没有跑着/等着/睡着的非后台任务
 await harness.waitForIdle(context);
 
+// 让出一个宏任务，把 watch 的回调队列排空
 await new Promise((r) => setTimeout(r, 0));
 await watch.stop();
 await harness.close(context);

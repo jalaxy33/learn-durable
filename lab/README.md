@@ -25,7 +25,7 @@ npm run typecheck          # tsc --noEmit
 | 18 | [`18-json.ts`](examples/18-json.ts) | JSON 模式：原始 view 操作，或追加 entry + 每次变化触发的 `pi.live`，跑在 SQLite / JSONL / memory 上 | `ConversationView` 的窗口与 docs；ops 补丁 vs state 快照；折叠与积压整体替换；三种存储同构 | 通过 | 用 `DEEPSEEK_API_KEY` 切真模型 | [18-json](notes/18-json.md) |
 | 19 | [`19-inbox.ts`](examples/19-inbox.ts) | 忙碌时的 steer、follow-up、write 与撤回 | 忙时提交的四种去向；`pi.inbox` 队列；边界放置顺序；write 不排队；`continue` | 通过 | | [19-inbox](notes/19-inbox.md) |
 | 20 | `20-late-join.ts` | 运行中接入 view：先拿到运行中工具的输出，再看流式答案 | — | 未做 | | |
-| 21 | `21-subagent-foreground.ts` | 可重放的 subagent 工具，子会话归该调用所有，子 transcript 挂在调用下 | — | 未做 | | |
+| 21 | [`21-subagent-foreground.ts`](examples/21-subagent-foreground.ts) | 可重放的 subagent 工具，子会话归该调用所有，子 transcript 挂在调用下 | 子会话 `ownership: task`；`replay: "safe"` + owner 扫描 + `requestId` 的幂等三件套；`api.details` 暴露子会话；按条目 ID 读答案 | 通过 | 用 `DEEPSEEK_API_KEY` 切真模型 | [21-subagent-foreground](notes/21-subagent-foreground.md) |
 | 22 | `22-subagent-background.ts` | 常驻 subagent：生成、steer、停止、列出，答案回报给父会话，重启安全 | — | 未做 | | |
 | 23 | `23-child-tasks.ts` | 一个 checkout 拥有并等待四笔支付：failFast、abort、重启 | — | 未做 | | |
 | 24 | `24-compaction.ts` | 长对话压缩：后台、手动、上下文溢出后 | — | 未做 | | |
