@@ -161,3 +161,69 @@ function text(message: Message | undefined): string {
   const block = message.content.find((content) => content.type === "text");
   return block?.type === "text" ? block.text.replaceAll("\n", " ") : "";
 }
+
+/*
+预期输出：
+after "Where should we stay?" (answered): 2 messages in context, 2 entries stored
+  user      Where should we stay?
+  assistant A detailed answer to "Where should we stay?": details details details
+
+after "What should we eat?" (answered): 4 messages in context, 4 entries stored
+  user      Where should we stay?
+  assistant A detailed answer to "Where should we stay?": details details details
+  user      What should we eat?
+  assistant A detailed answer to "What should we eat?": details details details de
+
+after "Which day trips?" (answered): 6 messages in context, 6 entries stored
+  user      Where should we stay?
+  assistant A detailed answer to "Where should we stay?": details details details
+  user      What should we eat?
+  assistant A detailed answer to "What should we eat?": details details details de
+  user      Which day trips?
+  assistant A detailed answer to "Which day trips?": details details details detai
+
+after "Any museums?" (answered): 4 messages in context, 9 entries stored
+  (threshold compaction summary first)
+  user      The conversation history before this point was compacted into the foll
+  assistant A detailed answer to "Which day trips?": details details details detai
+  user      Any museums?
+  assistant A detailed answer to "Any museums?": details details details details d
+
+after "Nightlife?" (answered): 7 messages in context, 12 entries stored
+  (threshold compaction summary first)
+  system    (system prompt)
+  user      The conversation history before this point was compacted into the foll
+  assistant A detailed answer to "Which day trips?": details details details detai
+  user      Any museums?
+  assistant A detailed answer to "Any museums?": details details details details d
+  user      Nightlife?
+  assistant A detailed answer to "Nightlife?": details details details details det
+
+manual compaction finished; its summary is queued
+after the answer, the summary is done
+
+After compact(): 4 messages in context, 15 entries stored
+  (manual compaction summary first)
+  user      The conversation history before this point was compacted into the foll
+  assistant A detailed answer to "Nightlife?": details details details details det
+  user      How do we get around?
+  assistant A detailed answer to "How do we get around?": details details details
+
+after "What should we pack?" (answered): 7 messages in context, 18 entries stored
+  (manual compaction summary first)
+  system    (system prompt)
+  user      The conversation history before this point was compacted into the foll
+  assistant A detailed answer to "Nightlife?": details details details details det
+  user      How do we get around?
+  assistant A detailed answer to "How do we get around?": details details details
+  user      What should we pack?
+  assistant A detailed answer to "What should we pack?": details details details d
+
+after "Summarize the plan for my partner" (answered): 5 messages in context, 23 entries stored
+  (overflow compaction summary first)
+  system    (system prompt)
+  user      The conversation history before this point was compacted into the foll
+  assistant A detailed answer to "What should we pack?": details details details d
+  user      Summarize the plan for my partner
+  assistant A detailed answer to "Summarize the plan for my partner": details deta
+*/
