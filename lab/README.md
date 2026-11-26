@@ -17,13 +17,13 @@ npm run typecheck          # tsc --noEmit
 
 | 序 | 文件 | 演示什么 | 关键机制 | 状态 | 备注 | 笔记 |
 |---|---|---|---|---|---|---|
-| 13 | `13-chat.ts` | 一问一答 | `submit` / `wait` 的提交与结算；`pi.generation` 运行；sections 系统提示词；条目只追加 | 通过 | | [13-chat](notes/13-chat.md) |
-| 14 | `14-system-prompt.ts` | 系统提示词 | sections + `wrapSection` 装饰；`pi.system` 只存差异补丁；`env` 工厂；每会话 agent | 通过 | | [14-system-prompt](notes/14-system-prompt.md) |
-| 15 | `15-real-model.ts` | 用 DeepSeek 流式输出答案 | provider / `Models` 目录；`pi.live` 节流的部分回答；`watchDoc` 看文档；补齐差额 | 通过 | 需要 `DEEPSEEK_API_KEY`；模型 `deepseek-flash` | [15-real-model](notes/15-real-model.md) |
-| 16 | `16-coding-tools.ts` | 带工具的一轮对话，JSONL 存储 | `Storage` 接口换实现；`env` 决定文件/进程访问；每个调用一个 `pi.tool` 任务；`beforeTool`/`afterTool`；工具错误是数据 | 通过 | 存储目录 = 工作目录（同一个临时目录）；`cat /tmp/1gb.txt` 要先建文件 | [16-coding-tools](notes/16-coding-tools.md) |
+| 13 | [`13-chat.ts`](examples/13-chat.ts) | 一问一答 | `submit` / `wait` 的提交与结算；`pi.generation` 运行；sections 系统提示词；条目只追加 | 通过 | | [13-chat](notes/13-chat.md) |
+| 14 | [`14-system-prompt.ts`](examples/14-system-prompt.ts) | 系统提示词 | sections + `wrapSection` 装饰；`pi.system` 只存差异补丁；`env` 工厂；每会话 agent | 通过 | | [14-system-prompt](notes/14-system-prompt.md) |
+| 15 | [`15-real-model.ts`](examples/15-real-model.ts) | 用 DeepSeek 流式输出答案 | provider / `Models` 目录；`pi.live` 节流的部分回答；`watchDoc` 看文档；补齐差额 | 通过 | 需要 `DEEPSEEK_API_KEY`；模型 `deepseek-flash` | [15-real-model](notes/15-real-model.md) |
+| 16 | [`16-coding-tools.ts`](examples/16-coding-tools.ts) | 带工具的一轮对话，JSONL 存储 | `Storage` 接口换实现；`env` 决定文件/进程访问；每个调用一个 `pi.tool` 任务；`beforeTool`/`afterTool`；工具错误是数据 | 通过 | 存储目录 = 工作目录（同一个临时目录）；`cat /tmp/1gb.txt` 要先建文件 | [16-coding-tools](notes/16-coding-tools.md) |
 | 17 | `17-print.ts` | print 模式：提交 prompt，打印答案 | — | 未做 | | |
 | 18 | `18-json.ts` | JSON 模式：原始 view 操作，或追加 entry + 每次变化触发的 `pi.live`，跑在 SQLite / JSONL / memory 上 | — | 未做 | | |
-| 19 | `19-inbox.ts` | 忙碌时的 steer、follow-up、write 与撤回 | 忙时提交的四种去向；`pi.inbox` 队列；边界放置顺序；write 不排队；`continue` | 通过 | | [19-inbox](notes/19-inbox.md) |
+| 19 | [`19-inbox.ts`](examples/19-inbox.ts) | 忙碌时的 steer、follow-up、write 与撤回 | 忙时提交的四种去向；`pi.inbox` 队列；边界放置顺序；write 不排队；`continue` | 通过 | | [19-inbox](notes/19-inbox.md) |
 | 20 | `20-late-join.ts` | 运行中接入 view：先拿到运行中工具的输出，再看流式答案 | — | 未做 | | |
 | 21 | `21-subagent-foreground.ts` | 可重放的 subagent 工具，子会话归该调用所有，子 transcript 挂在调用下 | — | 未做 | | |
 | 22 | `22-subagent-background.ts` | 常驻 subagent：生成、steer、停止、列出，答案回报给父会话，重启安全 | — | 未做 | | |
@@ -42,8 +42,8 @@ npm run typecheck          # tsc --noEmit
 | 35 | `35-durable-on-the-store.ts` | Harness 建在 Chord 宿主 store 的 `StoreStorage` 上，与 Chord 对象自己的表并存：一个 commit 队列、一个 id 分配器、一次导出 | — | 未做 | | |
 | 36 | `36-durable-views.ts` | Chord 对象用 `self.follow` 跟一个 Durable view：帧，以及成员读取跟到的值 | — | 未做 | | |
 | 37 | `37-harness-registry.ts` | Harness 放在 Chord 对象里：扩展经 Chord registry 贡献，Harness 关闭时 follower 迁到下一个 | — | 未做 | | |
-| 38 | `38-signals.ts` | `defineSignal()`、`harness.signal()` 的每种结果、提前到的信号立刻唤醒 sleep | 信号的 name/version/schema；五种投递结果；睡在 key 上、唤醒即消费；`wake()` 的宿主视角 | 通过 | | [38-signals](notes/38-signals.md) |
-| 39 | `39-ask-a-person.ts` | task 睡在一个人的回答上并带 deadline：先答，再过期且迟到回答被拒；睡眠中 `wake()` | 信号 + `until` 同时挂；`reason` 决定走哪条；时钟注入；过期后迟到值 `closed`；问题内容归宿主存 | 通过 | | [39-ask-a-person](notes/39-ask-a-person.md) |
+| 38 | [`38-signals.ts`](examples/38-signals.ts) | `defineSignal()`、`harness.signal()` 的每种结果、提前到的信号立刻唤醒 sleep | 信号的 name/version/schema；五种投递结果；睡在 key 上、唤醒即消费；`wake()` 的宿主视角 | 通过 | | [38-signals](notes/38-signals.md) |
+| 39 | [`39-ask-a-person.ts`](examples/39-ask-a-person.ts) | task 睡在一个人的回答上并带 deadline：先答，再过期且迟到回答被拒；睡眠中 `wake()` | 信号 + `until` 同时挂；`reason` 决定走哪条；时钟注入；过期后迟到值 `closed`；问题内容归宿主存 | 通过 | | [39-ask-a-person](notes/39-ask-a-person.md) |
 | 40 | `40-tool-waits-for-webhook.ts` | CI 工具落在自己 webhook 的 signal 上：park 前崩溃（幂等 memo）与 park 中被 Stop（`cancel`） | — | 未做 | | |
 | 41 | `41-tool-polls.ts` | 按时间 park，带退避地轮询一个慢任务 | — | 未做 | | |
 | 42 | `42-parallel-children.ts` | `executeTool(..., { wait: false })` 与 `policy: "any"` 的 park，跨唤醒按 key 收结果 | — | 未做 | | |
@@ -69,7 +69,7 @@ npm run typecheck          # tsc --noEmit
 | 09 | `09-registry-reload.ts` | — | 未做 | |
 | 10 | `10-extension-state.ts` | — | 未做 | |
 | 11 | `11-tasks.ts` | — | 未做 | |
-| 12 | `12-recovery.ts` | `defineTask` 阶段状态机；检查点 + `memo` 幂等；`sleepUntil`；关掉重开继续 | 通过 | [12-recovery](notes/12-recovery.md) |
+| 12 | [`12-recovery.ts`](examples/12-recovery.ts) | `defineTask` 阶段状态机；检查点 + `memo` 幂等；`sleepUntil`；关掉重开继续 | 通过 | [12-recovery](notes/12-recovery.md) |
 
 ## 对应笔记
 
