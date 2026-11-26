@@ -36,7 +36,7 @@ npm run typecheck          # tsc --noEmit
 | 29 | `29-tool-override.ts` | 部分会话换用同名 bash，再包一层给胜出的 bash 计时 | — | 未做 | | |
 | 30 | `30-reload-and-restart.ts` | 调用进行中重载扩展；存储的选择跨重启存活 | — | 未做 | | |
 | 31 | `31-transcript.ts` | 客户端 transcript 走 windowed view：实时追加、带 gap 的停顿、加载与更早分页、用 `from` 续读 | — | 未做 | | |
-| 32 | `32-tests-after-edits.ts` | `afterRun` 钩子在改过文件的 run 之后跑测试，失败则发起修复 run，输入等它们 | — | 未做 | | |
+| 32 | `32-tests-after-edits.ts` | `afterRun` 钩子在改过文件的 run 之后跑测试，失败则发起修复 run，输入等它们 | `afterRun` 在答案之后、把任务挂进 `run.afterRun`；按 `run.first`/`last` 扫条目判断改动；`hookTask`；提交里 `admit` 修复输入 + `requestId` 幂等；循环刹车 | 在做 | | [32-tests-after-edits](notes/32-tests-after-edits.md) |
 | 33 | [`33-turn-limit-and-continue.ts`](examples/33-turn-limit-and-continue.ts) | 每会话 turn 上限、`runFailure`、不带用户消息继续 | `maxTurns` 存会话 agent；`turn_limit` 是可恢复停止；`continue` 重置预算且不排队；`nothing_to_answer` | 通过 | | [33-turn-limit-and-continue](notes/33-turn-limit-and-continue.md) |
 | 34 | `34-submit-in-commit.ts` | 用 `submit(tx, draft)` 与 `whenIdle: "reject"` 在宿主自己的 commit 内接纳 visitor 的 steer | — | 未做 | | |
 | 35 | `35-durable-on-the-store.ts` | Harness 建在 Chord 宿主 store 的 `StoreStorage` 上，与 Chord 对象自己的表并存：一个 commit 队列、一个 id 分配器、一次导出 | — | 未做 | | |
