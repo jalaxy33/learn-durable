@@ -1,6 +1,6 @@
 # lab
 
-跑通 `@earendil-works/pi-durable` **v1.6.0** 官方示例的实验目录。代码在 `examples/`，顺序：`13` → `47`，最后是底层的 `00` → `12`。
+跑通 `@earendil-works/pi-durable` **v1.6.1** 官方示例的实验目录。代码在 `examples/`，顺序：`13` → `47`，最后是底层的 `00` → `12`。
 
 ## 运行
 

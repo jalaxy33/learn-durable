@@ -2,7 +2,7 @@
 
 > 不锁行号：行号会随版本漂移。用章节名、示例编号、源码文件名定位。
 
-版本：pi-durable **v1.6.0**。
+版本：pi-durable **v1.6.1**。
 
 ## 1. 文档 ↔ README 章节
 
@@ -56,22 +56,26 @@ node --conditions=source --experimental-strip-types test/examples/13-chat.ts
 | 内置工具 | `packages/durable/src/tools/` |
 | code mode 扩展 | `packages/durable/src/codemode/` |
 
-## 4. v1.6.0 与 main 的差异
+## 4. v1.6.0 与 v1.6.1 的差异
 
-main 的 `package.json` 仍是 `1.6.0`，但 `CHANGELOG` 有 `[Unreleased]`。主要差异是"隐式联合 → 带 `kind` 的标签联合"：
+v1.6.1（2026-11-25）把原先在 main 上的 "Unreleased" 改动作了发布。全部是**返回值形状**：隐式联合改成带 `kind` 的标签联合，没有机制变化。
 
-| 位置 | v1.6.0（已发布） | main |
+| 位置 | v1.6.0 | v1.6.1 |
 |---|---|---|
 | park 返回值 | `{ sleep: {...} }` / `{ wait: {...} }` | `{ kind: "sleep", ... }` / `{ kind: "wait", ... }` |
 | signal 状态 | `{ value }` / `{ expired: true }` | `{ kind: "value", value }` / `{ kind: "expired" }` |
 | `onYield` 结果 | `{ continue: "..." }` | `{ kind: "continue", continue }` |
-| 事务内受理 | `submit(tx, draft)` | `admit(tx, draft)` |
+| 事务内受理 | `submit(tx, draft)` | `admit(tx, draft)`（`submit(draft, context)` 不变） |
 | `beforeCompact` | `{ decline: true }` / `{ summary }` | `{ kind: "decline" }` / `{ kind: "summary", summary }` |
-| `Wrap` | 无标签 | `{ kind: "tool" }` / `{ kind: "section" }` |
-| `Storage.commit()` 结果 | 无标签 | `{ kind: "stored" }` / `{ kind: "refused" }` |
+| `Wrap` | 无标签 | `{ kind: "tool" }` / `{ kind: "section" }`（用 `wrapTool()` / `wrapSection()` 构造） |
+| `Storage.commit()` 结果 | `{ stored, refused? }` | `{ kind: "stored", stored }` / `{ kind: "refused", stored, refused }` |
 | 事务内会话受理 | `handle.submit(tx, draft)` | `handle.admit(tx, draft)` |
 
-写代码时以 v1.6.0 为准；迁移到 main 时逐项改。
+判定方式跟着变：`state?.kind === "value"`、`returned.kind === "sleep"`、`result.kind === "refused"`。别再用 `"value" in state` 这类形状探测。
+
+v1.6.1 同时带两个与接口无关的修复：`NodeExecutionEnv` 在 Windows 上通过 `PATH` 的 `git.exe`（`git var GIT_SHELL_PATH`，Git 2.47+）找 Git Bash；Node 环境的行读取器不再对每个 chunk 重扫未完成行（长行从平方降到线性）。
+
+写代码时以 v1.6.1 为准；读 v1.6.0 时代的代码时按上表对照。
 
 ## 5. 文档怎么维护
 
@@ -79,7 +83,7 @@ README 变化时：
 
 1. 先更新 `upstream/` 快照和 `VERSIONS.md`；
 2. 只改受影响的章节，不重写整篇；
-3. 代码块检查版本标注（v1.6.0 / main）；
+3. 代码块检查版本标注（v1.6.1 / v1.6.0）；
 4. 自检题和答案同步改；
 5. 不引入行号；需要精确定位时更新本文件的表格。
 
@@ -87,8 +91,8 @@ README 变化时：
 
 ### 6.1 方法
 
-- 示例源码取自 v1.6.0 的 `packages/durable/test/examples`。
-- 用 npm 安装 `pi-durable@1.6.0`、`pi-ai@1.6.0`、`chord@1.6.0`、`pi-schema@1.6.0`、`@silvia-odwyer/photon-node@0.3.4`。
+- 示例源码取自 v1.6.0 的 `packages/durable/test/examples`（`lab/` 里按 v1.6.1 重跑过 12–19）。
+- 用 npm 安装 `pi-durable@1.6.1`、`pi-ai@1.6.1`、`chord@1.6.1`、`pi-schema@1.6.1`、`@silvia-odwyer/photon-node@0.3.4`。
 - 只把 `../../src/...` 改成包路径（根、`/tools`、`/env/node`、`/storage/...`、`/images/...`），其余代码不动。
 - Node 26.13.1，`node --experimental-strip-types`，每个示例 45 秒超时，cwd 是临时目录。
 - 结果：**48 个示例中 47 个实际跑通；示例 15 因未设置 `OPENAI_API_KEY` 主动跳过**。
@@ -150,8 +154,8 @@ README 变化时：
 
 ### 6.3 其他观察
 
-- v1.6.0 的 `ConversationId` / `SubmissionId` / `EntryId` 都是**数字**，不是字符串。
-- `harness.commit(tx => root.submit(tx, draft))` 可用；`harness.submission(id)` 能找回。
+- `ConversationId` / `SubmissionId` / `EntryId` 都是**数字**，不是字符串。
+- `harness.commit(tx => root.admit(tx, draft))` 可用；`harness.submission(id)` 能找回。
 - `watch().value` 顶层是 `conversation` / `entries` / `docs`；`docs` 含 `pi.agent`、`pi.live`、`pi.inbox`、`pi.provider`、`pi.usage`。
 - 未装 section 时没有 `pi.system`（13 装了 section，所以有）。
 - 示例 16/18 的输出会受运行目录影响（读不到 `/tmp/1gb.txt`、`ls` 列出临时目录），这是环境差异，不是失败。

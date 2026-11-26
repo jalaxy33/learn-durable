@@ -2,7 +2,7 @@
 
 > durable 的核心不写死任何能力。扩展声明"我带什么"，registry 在运行时解析；每次工具调用又是一个持久 task。于是"加能力"和"能力可恢复"是同一套机制。
 
-版本：pi-durable **v1.6.0**。
+版本：pi-durable **v1.6.1**。
 
 ## 你会学到
 
@@ -215,7 +215,7 @@ const exitCode = (run.structuredOutput as { exitCode: number } | undefined)?.exi
 工具不返回结果，而是返回"我要等"：
 
 ```typescript
-return { sleep: { signals: [CiResult.key("done")], until: api.now() + 2 * HOUR, checkpoint: { buildId } } };
+return { kind: "sleep", signals: [CiResult.key("done")], until: api.now() + 2 * HOUR, checkpoint: { buildId } };
 ```
 
 - 进程立刻释放；task 状态是 `sleeping`。
@@ -311,5 +311,5 @@ return { sleep: { signals: [CiResult.key("done")], until: api.now() + 2 * HOUR, 
 - 上一篇：[1-foundations.md](1-foundations.md)
 - 下一篇：[3-control.md](3-control.md)
 - 术语：[1-glossary.md](../3-appendix/1-glossary.md)
-- 原文：`upstream/pi-durable-README.v1.6.0.md` 的 Extensions、Tools、System Prompt、Per-Conversation Agent、Settings、Environment
+- 原文：`upstream/pi-durable-README.v1.6.1.md` 的 Extensions、Tools、System Prompt、Per-Conversation Agent、Settings、Environment
 - 对应示例：`16-coding-tools`、`25-coding-agent`、`29-tool-override`、`38-signals`、`40-tool-waits-for-webhook`、`47-fit-images`

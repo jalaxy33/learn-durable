@@ -2,7 +2,7 @@
 
 > 用户、agent、外部事件会同时想改变下一步。durable 不靠锁，也不靠拒绝，而是用**持久 inbox + 明确的放置边界**来决定顺序。
 
-版本：pi-durable **v1.6.0**。
+版本：pi-durable **v1.6.1**。
 
 ## 你会学到
 
@@ -118,7 +118,7 @@ transcript: pi.user, app.note, pi.assistant, pi.user, pi.user, pi.assistant
 
 ---
 
-## 4. `submit(tx, draft)`：把"检查 + 入队"变成原子操作
+## 4. `admit(tx, draft)`：把"检查 + 入队"变成原子操作
 
 问题：
 
@@ -130,13 +130,13 @@ await myDb.log({ userId, text });             // ③ 记录
 
 三个窗口都会出事：崩在 ①② 之间（消息丢了）、②③ 之间（消息进了但没记录）、① 期间禁言被改。
 
-解法（v1.6.0 的事务形态）：
+解法（事务内受理）：
 
 ```typescript
 const id = await harness.commit(async (tx) => {
   const chat = await tx.doc(MyChat, root.id);
   if (chat.muted.includes(userId)) throw new Error("Muted");
-  const id = await root.submit(tx, { type: "input", content: text, whenBusy: "steer" });
+  const id = await root.admit(tx, { type: "input", content: text, whenBusy: "steer" });
   chat.sent.push({ id, userId });
   return id;
 }, context);
@@ -151,7 +151,7 @@ const id = await harness.commit(async (tx) => {
 
 > 为什么必须在表写入之前：admission 要读会话当前状态（inbox、agent、是否忙）来决定放哪。先写表就产生了"未发布的新状态"，判断会基于半新半旧的数据。框架直接拒绝，避免你写出这种逻辑。
 
-> v1.6.0 叫 `submit(tx, draft)`；main 已改名为 `admit(tx, draft)`。见 `../3-appendix/3-source-map.md`。
+> v1.6.0 叫 `submit(tx, draft)`；v1.6.1 起改名 `admit(tx, draft)`。`submit(draft, context)` 不变。
 
 ---
 
@@ -306,7 +306,7 @@ hook(ToolTask, {
     const key = digest(call.arguments);
     const state = await api.readSignal(Approval, key, context);
     const until = await api.memo(`until.${key}`, api.now() + DAY, context);
-    if (state === undefined) return { sleep: { signals: [Approval.key(key)], until } };
+    if (state === undefined) return { kind: "sleep", signals: [Approval.key(key)], until } };
     if ("expired" in state) return { block: "No approval within a day" };
     return state.value.allow ? undefined : { block: "Not approved" };
   },
@@ -360,7 +360,7 @@ asked to approve "rm -rf cache"
 ## 10. 自检
 
 1. 工具跑 10 分钟时用户说"用 pnpm 别用 npm"。默认会怎样？想立刻影响该用什么？来得及改正在跑的工具吗？
-2. 先查禁言再 `submit` 有什么窗口？用 `submit(tx, draft)` 怎么改？为什么必须在表写入之前？
+2. 先查禁言再 `submit` 有什么窗口？用 `admit(tx, draft)` 怎么改？为什么必须在表写入之前？
 3. `afterRun` 跑测试，`wait()` 返回 `done` 时测试跑完了吗？产品上怎么表达"真的完成"？
 4. `onYield` 的答案已经写进 transcript，但 `wait()` 没返回。UI 直接渲染会怎样？
 5. reset 和 compaction 都能让模型少看历史，什么时候用哪个？

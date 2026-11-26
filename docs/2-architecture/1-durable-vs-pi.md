@@ -2,7 +2,7 @@
 
 > Pi 是一个装好的 agent 应用；durable 是装 agent 的运行时。它们共享模型层，但持久化和执行模型不同。
 
-版本：pi-durable **v1.6.0**；Pi（`pi-coding-agent`）**1.6.0**。
+版本：pi-durable **v1.6.1**；Pi（`pi-coding-agent`）**1.6.1**。
 
 ## 你会学到
 

@@ -2,7 +2,7 @@
 
 > durable 把"事实"（entry）、"状态"（document）和"正在做什么"（task）放在同一个提交里；UI 读已提交的视图，运维读报告和任务图。成本是：任何持久状态都必须能表达成一次 commit。
 
-版本：pi-durable **v1.6.0**。
+版本：pi-durable **v1.6.1**。
 
 ## 你会学到
 
@@ -135,7 +135,7 @@ await root.commit(
 ```text
 按顺序存 batches（每个是一个原子提交，带 seq）
 全部 durable 之后，同步调用 receive(index, seq)  ← 落盘回执
-返回 { stored, refused? }；未知结果就 reject
+返回 { kind: "stored", stored } 或 { kind: "refused", stored, refused }；未知结果就 reject
 ```
 
 `receive` 让 Session 在"确认落盘"之后才发布，内存和视图不会看到半截日志。写完用 `registerStorageConformance()` 跑共享测试套件。

@@ -2,7 +2,7 @@
 
 > 先自己回答，再对答案。题在每篇末尾。
 
-版本：pi-durable **v1.6.0**。
+版本：pi-durable **v1.6.1**。
 
 ## 1. 基础
 
@@ -25,7 +25,7 @@
 
 ### 1.2 `settled.answer` 是什么？为什么示例要用 `commit` 去读？
 
-`settled.answer` 是 **EntryId（一个不透明的 ID；v1.6.0 里是数字）**，不是消息内容。
+`settled.answer` 是 **EntryId（一个不透明的 ID；v1.6.1 里是数字）**，不是消息内容。
 
 答案是 `pi.generation` task 自己 append 的。示例里：
 
@@ -152,13 +152,13 @@ durable 存的是"task 睡在哪个 key 上"，不存"外部世界怎么找到�
 
 三个窗口：检查后提交前崩（消息丢）、提交后记录前崩（消息进了但没记录）、检查期间禁言被改。
 
-用 `submit(tx, draft)` 放进自己的 commit：
+用 `admit(tx, draft)` 放进自己的 commit：
 
 ```typescript
 const id = await harness.commit(async (tx) => {
   const chat = await tx.doc(MyChat, root.id);
   if (chat.muted.includes(userId)) throw new Error("Muted");
-  const id = await root.submit(tx, { type: "input", content: text });
+  const id = await root.admit(tx, { type: "input", content: text });
   chat.sent.push({ id, userId });
   return id;
 }, context);

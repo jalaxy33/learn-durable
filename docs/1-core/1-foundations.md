@@ -2,7 +2,7 @@
 
 > durable 的主线只有一条：**先把状态提交到存储，再让外界看到；进程死了，从最后一个 checkpoint 继续。**
 
-版本：pi-durable **v1.6.0**。代码以此为准；main 的差异见 `upstream/VERSIONS.md`。
+版本：pi-durable **v1.6.1**。代码以此为准；版本差异见 `upstream/VERSIONS.md`。
 
 ## 你会学到
 
@@ -96,7 +96,7 @@ const answer = await root.commit((tx) => tx.entry(AssistantEntry, settled.answer
 
 这行**不是**把答案再写一遍。
 
-- `settled.answer` 是 **EntryId（一个不透明的 ID；v1.6.0 里是数字）**，不是消息内容。
+- `settled.answer` 是 **EntryId（一个不透明的 ID；v1.6.1 里是数字）**，不是消息内容。
 - 答案是 `pi.generation` task 自己 append 的。
 - `commit` 的签名是 `commit<T>(change: (tx) => T | Promise<T>)`，返回 callback 的返回值。
 - `tx.entry(token, id)` 是**读**：按 ID 取 entry，类型不符或不存在返回 `undefined`。
@@ -298,9 +298,9 @@ ask: (_task, runtime, context) =>
 		context,
 	),
 answered: async (task, runtime, context) => {
-	// v1.6.0: { value } | { expired: true } | undefined
+	// { kind: "value", value } | { kind: "expired" } | undefined
 	const state = await runtime.readSignal(Answer, "answer", context);
-	const text = state !== undefined && "value" in state ? state.value.text : null;
+	const text = state?.kind === "value" ? state.value.text : null;
 	await runtime.commit(() => ({ status: "terminal", outcome: { status: "completed", result: text } }), context);
 },
 ```
@@ -432,5 +432,5 @@ Harness.open(storage, { models, registry, onReport: (report) => { ... } }, conte
 
 - 下一篇：[2-capabilities.md](2-capabilities.md)
 - 术语：[1-glossary.md](../3-appendix/1-glossary.md)
-- 原文：`upstream/pi-durable-README.v1.6.0.md` 的 Quick Start、Persist and Resume
+- 原文：`upstream/pi-durable-README.v1.6.1.md` 的 Quick Start、Persist and Resume
 - 对应官方示例：`00-conversation`、`13-chat`、`16-coding-tools`、`38-signals`、`39-ask-a-person`

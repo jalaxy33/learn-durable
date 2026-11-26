@@ -2,7 +2,7 @@
 
 > 一页纸：原语、决策、默认值、失败原因、坑。细节回到各章。
 
-版本：pi-durable **v1.6.0**。
+版本：pi-durable **v1.6.1**。
 
 ## 1. 原语
 
@@ -178,5 +178,5 @@ settings: {
 
 ## 7. 版本提醒
 
-- 本文代码基于 **v1.6.0**。
-- main 的 park/signal/`admit` 等已改为带 `kind` 的标签联合；逐项差异见 [3-source-map.md](3-source-map.md#4-v160-与-main-的差异)。
+- 本文代码基于 **v1.6.1**。
+- v1.6.1 相对 v1.6.0 只改了返回值形状（park/signal/`admit` 等改为带 `kind` 的标签联合），机制不变；逐项差异见 [3-source-map.md](3-source-map.md#4-v160-与-v161-的差异)。

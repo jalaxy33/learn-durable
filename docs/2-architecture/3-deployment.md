@@ -2,7 +2,7 @@
 
 > durable 的运行时可以留在本地，把工具执行放到别的机器（`pi-env`）；而跨机器 agent 通信不在 durable 里，需要你自己补"传输 + 路由 + 幂等 + 死信"。
 
-版本：pi-durable **v1.6.0**；`pi-env` **1.6.0**。
+版本：pi-durable **v1.6.1**；`pi-env` **1.6.1**。
 
 ## 你会学到
 
@@ -28,7 +28,7 @@ pi-env
 └─ client    TS：RemoteExecutionEnv / LocalExecutionEnv / openTerminal / openProcess
 ```
 
-它直接依赖 `@earendil-works/pi-durable@1.6.0`。
+它直接依赖 `@earendil-works/pi-durable@1.6.1`。
 
 ---
 
