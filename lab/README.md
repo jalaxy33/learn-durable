@@ -31,7 +31,7 @@ npm run typecheck          # tsc --noEmit
 | 24 | [`24-compaction.ts`](examples/24-compaction.ts) | 长对话压缩：后台、手动、上下文溢出后 | 三条触发路径；摘要是 `pi.compaction` 条目 + `head` 标记；手动压缩排队放置；`entries` 与 `context` 的区别 | 通过 | | [24-compaction](notes/24-compaction.md) |
 | 25 | [`25-coding-agent.ts`](examples/25-coding-agent.ts) | CodingTools、settings 对象提供的实时设置、跟随会话目录的 environment | 五块零件的组装；getter 设置每次读取；env 工厂跟随会话 cwd；用 `bash pwd` 做自检回路；产品化缺口清单 | 通过 | | [25-coding-agent](notes/25-coding-agent.md) |
 | 26 | [`26-plan-mode.ts`](examples/26-plan-mode.ts) | 只读 plan 模式，作为带自己 document 的扩展，用 `configure()` 切换 | 模式=改 agent（扩展 `add` + 工具绝对列表）；`null` 清回默认；切换落成 `pi.system` 补丁；`submit_plan` 用 `control.terminate` 收尾 | 通过 | | [26-plan-mode](notes/26-plan-mode.md) |
-| 27 | `27-reviewer.ts` | 自带 model、扩展、工具、目录的 reviewer 会话与评审循环 | — | 未做 | | |
+| 27 | [`27-reviewer.ts`](examples/27-reviewer.ts) | 自带 model、扩展、工具、目录的 reviewer 会话与评审循环 | 两个会话各自存 agent；`tools` 绝对列表实现只读；`onYield` 把“再查一遍”变成同 run 循环；必须有刹车 | 通过 | | [27-reviewer](notes/27-reviewer.md) |
 | 28 | [`28-sandbox-per-conversation.ts`](examples/28-sandbox-per-conversation.ts) | 每会话一个 environment，从 app document 里查 | `env` 可异步、带 `conversationId` + 已提交 `read`；返回 `undefined` = 没有环境（工具干净失败）；`init` 在创建提交里写记录；`fork: initial` 不继承沙箱 | 通过 | | [28-sandbox-per-conversation](notes/28-sandbox-per-conversation.md) |
 | 29 | [`29-tool-override.ts`](examples/29-tool-override.ts) | 部分会话换用同名 bash，再包一层给胜出的 bash 计时 | 同名工具按选中顺序替换（后者赢、位置不变）；`wrapTool` 按名字装饰、不捕获对象；包装器必须透传 park | 通过 | | [29-tool-override](notes/29-tool-override.md) |
 | 30 | [`30-reload-and-restart.ts`](examples/30-reload-and-restart.ts) | 调用进行中重载扩展；存储的选择跨重启存活 | 扩展身份是名字；快照在阶段边界切换；重启后未安装则解析为空；改名即静默丢失 | 通过 | | [30-reload-and-restart](notes/30-reload-and-restart.md) |
