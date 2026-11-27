@@ -33,7 +33,7 @@ npm run typecheck          # tsc --noEmit
 | 26 | [`26-plan-mode.ts`](examples/26-plan-mode.ts) | 只读 plan 模式，作为带自己 document 的扩展，用 `configure()` 切换 | 模式=改 agent（扩展 `add` + 工具绝对列表）；`null` 清回默认；切换落成 `pi.system` 补丁；`submit_plan` 用 `control.terminate` 收尾 | 通过 | | [26-plan-mode](notes/26-plan-mode.md) |
 | 27 | `27-reviewer.ts` | 自带 model、扩展、工具、目录的 reviewer 会话与评审循环 | — | 未做 | | |
 | 28 | `28-sandbox-per-conversation.ts` | 每会话一个 environment，从 app document 里查 | — | 未做 | | |
-| 29 | `29-tool-override.ts` | 部分会话换用同名 bash，再包一层给胜出的 bash 计时 | — | 未做 | | |
+| 29 | [`29-tool-override.ts`](examples/29-tool-override.ts) | 部分会话换用同名 bash，再包一层给胜出的 bash 计时 | 同名工具按选中顺序替换（后者赢、位置不变）；`wrapTool` 按名字装饰、不捕获对象；包装器必须透传 park | 通过 | | [29-tool-override](notes/29-tool-override.md) |
 | 30 | [`30-reload-and-restart.ts`](examples/30-reload-and-restart.ts) | 调用进行中重载扩展；存储的选择跨重启存活 | 扩展身份是名字；快照在阶段边界切换；重启后未安装则解析为空；改名即静默丢失 | 通过 | | [30-reload-and-restart](notes/30-reload-and-restart.md) |
 | 31 | [`31-transcript.ts`](examples/31-transcript.ts) | 客户端 transcript 走 windowed view：实时追加、带 gap 的停顿、加载与更早分页、用 `from` 续读 | 窗口 `min`/`max`；`ConversationTranscript.merge` 只增不改；`gap`/`earlier` 两类标记；`resume` 靠 `from` 续上；`fillGap` 一页一页补 | 通过 | | [31-transcript](notes/31-transcript.md) |
 | 32 | [`32-tests-after-edits.ts`](examples/32-tests-after-edits.ts) | `afterRun` 钩子在改过文件的 run 之后跑测试，失败则发起修复 run，输入等它们 | `afterRun` 在答案之后、把任务挂进 `run.afterRun`；按 `run.first`/`last` 扫条目判断改动；`hookTask`；提交里 `admit` 修复输入 + `requestId` 幂等；循环刹车 | 通过 | | [32-tests-after-edits](notes/32-tests-after-edits.md) |
