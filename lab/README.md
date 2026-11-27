@@ -65,7 +65,7 @@ npm run typecheck          # tsc --noEmit
 | 05 | `05-harness.ts` | — | 未做 | |
 | 06 | `06-configuration.ts` | — | 未做 | |
 | 07 | `07-harness-conversations.ts` | — | 未做 | |
-| 08 | `08-context.ts` | — | 未做 | |
+| 08 | [`08-context.ts`](examples/08-context.ts) | 条目→请求消息的五条推导规则：`head` 开新上下文、`edits` 替换、中断/报错不发、工具结果按调用顺序、缺结果补合成错误 | 通过 | [08-context](notes/08-context.md) |
 | 09 | [`09-registry-reload.ts`](examples/09-registry-reload.ts) | 重载是同名原地替换（一次发布）；`wrapTool` 按名字环绕、随被环绕工具重载仍生效；`uninstall` 静默降级 | 通过 | [09-registry-reload](notes/09-registry-reload.md) |
 | 10 | [`10-extension-state.ts`](examples/10-extension-state.ts) | 扩展自有状态用文档；工具 `tx.doc` 首次写即创建；段落 `input.read.snapshot` 缺省当默认；`pi.system` 只追加变化 | 通过 | [10-extension-state](notes/10-extension-state.md) |
 | 11 | `11-tasks.ts` | — | 未做 | |
