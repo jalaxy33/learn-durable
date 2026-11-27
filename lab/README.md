@@ -46,7 +46,7 @@ npm run typecheck          # tsc --noEmit
 | 39 | [`39-ask-a-person.ts`](examples/39-ask-a-person.ts) | task 睡在一个人的回答上并带 deadline：先答，再过期且迟到回答被拒；睡眠中 `wake()` | 信号 + `until` 同时挂；`reason` 决定走哪条；时钟注入；过期后迟到值 `closed`；问题内容归宿主存 | 通过 | | [39-ask-a-person](notes/39-ask-a-person.md) |
 | 40 | [`40-tool-waits-for-webhook.ts`](examples/40-tool-waits-for-webhook.ts) | CI 工具落在自己 webhook 的 signal 上：park 前崩溃（幂等 memo）与 park 中被 Stop（`cancel`） | 工具三段式；`replay: "safe"` + memo 幂等键；先登记回调再触发；park 不占进程；`cancel` 两种情况 | 通过 | | [40-tool-waits-for-webhook](notes/40-tool-waits-for-webhook.md) |
 | 41 | `41-tool-polls.ts` | 按时间 park，带退避地轮询一个慢任务 | — | 未做 | | |
-| 42 | `42-parallel-children.ts` | `executeTool(..., { wait: false })` 与 `policy: "any"` 的 park，跨唤醒按 key 收结果 | — | 未做 | | |
+| 42 | [`42-parallel-children.ts`](examples/42-parallel-children.ts) | `executeTool(..., { wait: false })` 与 `policy: "any"` 的 park，跨唤醒按 key 收结果 | `executeTool` 不等待 + `{kind:"wait",on,policy:"any"}`；key 跨唤醒重连；累积 `wake.ended`；`nestedTools` 可见；零进程扇出 | 通过 | | [42-parallel-children](notes/42-parallel-children.md) |
 | 43 | `43-subagent-waits.ts` | subagent 工具 park 在 `SubmissionSettled`（`notify`）上，子会话 park 在人身上 | — | 未做 | | |
 | 44 | [`44-approval-gate.ts`](examples/44-approval-gate.ts) | 以参数为 key、deadline 带 memo 的 `beforeTool` 审批闸，加一道每次唤醒都重问的闸，以及拒绝与过期 | 闸门三种返回；`sleep` 重跑 call 阶段；参数摘要当 key；deadline 必须 memo；拒绝/超时都是错误结果 | 通过 | `noUncheckedIndexedAccess` 下 Map 展开要断言 | [44-approval-gate](notes/44-approval-gate.md) |
 | 45 | [`45-review-on-yield.ts`](examples/45-review-on-yield.ts) | `onYield` 审查 task，`{ continue }` 把 agent 送回去；排队的用户消息胜出 | 答案先提交、输入保持 `placed`；`run.yield.answer` 供审查；打回重置轮数并再审；`takesContinuation` 让用户输入优先 | 通过 | | [45-review-on-yield](notes/45-review-on-yield.md) |
