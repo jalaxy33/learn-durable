@@ -38,7 +38,7 @@ npm run typecheck          # tsc --noEmit
 | 31 | [`31-transcript.ts`](examples/31-transcript.ts) | 客户端 transcript 走 windowed view：实时追加、带 gap 的停顿、加载与更早分页、用 `from` 续读 | 窗口 `min`/`max`；`ConversationTranscript.merge` 只增不改；`gap`/`earlier` 两类标记；`resume` 靠 `from` 续上；`fillGap` 一页一页补 | 通过 | | [31-transcript](notes/31-transcript.md) |
 | 32 | [`32-tests-after-edits.ts`](examples/32-tests-after-edits.ts) | `afterRun` 钩子在改过文件的 run 之后跑测试，失败则发起修复 run，输入等它们 | `afterRun` 在答案之后、把任务挂进 `run.afterRun`；按 `run.first`/`last` 扫条目判断改动；`hookTask`；提交里 `admit` 修复输入 + `requestId` 幂等；循环刹车 | 通过 | | [32-tests-after-edits](notes/32-tests-after-edits.md) |
 | 33 | [`33-turn-limit-and-continue.ts`](examples/33-turn-limit-and-continue.ts) | 每会话 turn 上限、`runFailure`、不带用户消息继续 | `maxTurns` 存会话 agent；`turn_limit` 是可恢复停止；`continue` 重置预算且不排队；`nothing_to_answer` | 通过 | | [33-turn-limit-and-continue](notes/33-turn-limit-and-continue.md) |
-| 34 | `34-submit-in-commit.ts` | 用 `submit(tx, draft)` 与 `whenIdle: "reject"` 在宿主自己的 commit 内接纳 visitor 的 steer | — | 未做 | | |
+| 34 | [`34-submit-in-commit.ts`](examples/34-submit-in-commit.ts) | 用 `admit(tx, draft)` 与 `whenIdle: "reject"` 在宿主自己的 commit 内接纳 visitor 的 steer | 检查+接纳+自有写入原子；拒绝发生在任何写入前；`admit` 必须先于表写入；`requestId` 幂等；`ConversationIdle` | 通过 | | [34-submit-in-commit](notes/34-submit-in-commit.md) |
 | 35 | `35-durable-on-the-store.ts` | Harness 建在 Chord 宿主 store 的 `StoreStorage` 上，与 Chord 对象自己的表并存：一个 commit 队列、一个 id 分配器、一次导出 | — | 未做 | | |
 | 36 | `36-durable-views.ts` | Chord 对象用 `self.follow` 跟一个 Durable view：帧，以及成员读取跟到的值 | — | 未做 | | |
 | 37 | `37-harness-registry.ts` | Harness 放在 Chord 对象里：扩展经 Chord registry 贡献，Harness 关闭时 follower 迁到下一个 | — | 未做 | | |
