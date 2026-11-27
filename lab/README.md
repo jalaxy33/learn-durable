@@ -27,7 +27,7 @@ npm run typecheck          # tsc --noEmit
 | 20 | `20-late-join.ts` | 运行中接入 view：先拿到运行中工具的输出，再看流式答案 | — | 未做 | | |
 | 21 | [`21-subagent-foreground.ts`](examples/21-subagent-foreground.ts) | 可重放的 subagent 工具，子会话归该调用所有，子 transcript 挂在调用下 | 子会话 `ownership: task`；`replay: "safe"` + owner 扫描 + `requestId` 的幂等三件套；`api.details` 暴露子会话；按条目 ID 读答案 | 通过 | 用 `DEEPSEEK_API_KEY` 切真模型 | [21-subagent-foreground](notes/21-subagent-foreground.md) |
 | 22 | `22-subagent-background.ts` | 常驻 subagent：生成、steer、停止、列出，答案回报给父会话，重启安全 | — | 未做 | | |
-| 23 | `23-child-tasks.ts` | 一个 checkout 拥有并等待四笔支付：failFast、abort、重启 | — | 未做 | | |
+| 23 | [`23-child-tasks.ts`](examples/23-child-tasks.ts) | 一个 checkout 拥有并等待四笔支付：failFast、abort、重启 | 子任务 `ownership: task`；建任务+等待一次提交；三种 join policy；`failFast` 不带走父；abort 先子后父；`watchTaskGraph` 看树 | 通过 | | [23-child-tasks](notes/23-child-tasks.md) |
 | 24 | [`24-compaction.ts`](examples/24-compaction.ts) | 长对话压缩：后台、手动、上下文溢出后 | 三条触发路径；摘要是 `pi.compaction` 条目 + `head` 标记；手动压缩排队放置；`entries` 与 `context` 的区别 | 通过 | | [24-compaction](notes/24-compaction.md) |
 | 25 | [`25-coding-agent.ts`](examples/25-coding-agent.ts) | CodingTools、settings 对象提供的实时设置、跟随会话目录的 environment | 五块零件的组装；getter 设置每次读取；env 工厂跟随会话 cwd；用 `bash pwd` 做自检回路；产品化缺口清单 | 通过 | | [25-coding-agent](notes/25-coding-agent.md) |
 | 26 | `26-plan-mode.ts` | 只读 plan 模式，作为带自己 document 的扩展，用 `configure()` 切换 | — | 未做 | | |
