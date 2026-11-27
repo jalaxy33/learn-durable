@@ -6,3 +6,4 @@
 - `docs/2-architecture/`：与 Pi 对比、扩展、部署、落地
 - `docs/3-appendix/`：术语、自检答案、源码/示例索引、速查
 - `upstream/`：上游 README 快照与版本差异
+- [`lab/`](lab/README.md)：官方示例的实验记录与笔记
