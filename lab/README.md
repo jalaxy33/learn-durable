@@ -66,7 +66,7 @@ npm run typecheck          # tsc --noEmit
 | 06 | `06-configuration.ts` | — | 未做 | |
 | 07 | `07-harness-conversations.ts` | — | 未做 | |
 | 08 | `08-context.ts` | — | 未做 | |
-| 09 | `09-registry-reload.ts` | — | 未做 | |
+| 09 | [`09-registry-reload.ts`](examples/09-registry-reload.ts) | 重载是同名原地替换（一次发布）；`wrapTool` 按名字环绕、随被环绕工具重载仍生效；`uninstall` 静默降级 | 通过 | [09-registry-reload](notes/09-registry-reload.md) |
 | 10 | `10-extension-state.ts` | — | 未做 | |
 | 11 | `11-tasks.ts` | — | 未做 | |
 | 12 | [`12-recovery.ts`](examples/12-recovery.ts) | `defineTask` 阶段状态机；检查点 + `memo` 幂等；`sleepUntil`；关掉重开继续 | 通过 | [12-recovery](notes/12-recovery.md) |
